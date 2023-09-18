@@ -25,6 +25,12 @@
                             </v-toolbar>
                             <v-container>
                                 <v-row>
+
+                                    <v-col cols="12">
+                                        <v-alert type="info" variant="tonal">
+                                            Por favor, complete todos los campos de manera cuidadosa, ya que serán validados posteriormente.
+                                        </v-alert>
+                                    </v-col>
                                     <v-col cols="12" sm="6" class="d-flex">
                                         <v-text-field
                                             density="compact"
@@ -133,7 +139,7 @@
                                             <v-col cols="12">
                                                 <v-text-field
                                                     v-model="form.series"
-                                                    label="Serie"
+                                                    label="Serie / N° de Operación "
                                                     :rules="[isRequired]"
                                                     :error-messages="
                                                         form.errors.series
