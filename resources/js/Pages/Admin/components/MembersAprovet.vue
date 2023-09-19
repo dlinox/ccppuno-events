@@ -1,6 +1,4 @@
 <template>
-    <pre>{{ members }}</pre>
-
     <v-table>
         <thead>
             <tr>

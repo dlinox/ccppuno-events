@@ -80,7 +80,7 @@ class AdminController extends Controller
                 'email' => Crypt::encryptString($member['email'])
             ];
 
-            Mail::to('nearlino20@gmail.com')->send(new AprovePreRegistrationMail($data));
+            Mail::to($member['email'])->send(new AprovePreRegistrationMail($data));
         }
         $this->updateCell($request->sheet);
         return response()->json([

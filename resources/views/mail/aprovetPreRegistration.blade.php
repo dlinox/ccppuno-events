@@ -10,7 +10,7 @@
 <body>
 
     <h2>Pre inscripcion </h2>
-    <a href="http://ccppuno_events.test/payment-registration/{{$data['document']}}/{{$data['email']}}" target="_blank">Registrar Pago</a>
+    <a href="https://registro.guber2023.ccppuno.org.pe/payment-registration/{{$data['document']}}/{{$data['email']}}" target="_blank">Registrar Pago</a>
 </body>
 
 </html>
