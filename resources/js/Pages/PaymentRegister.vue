@@ -15,7 +15,7 @@
                     </div>
 
                     <v-form ref="formRegister" @submit.prevent="submit">
-                        <v-card
+                        <!-- <v-card
                             class="mt-4 mx-auto bg-transparent"
                             flat
                             max-width="600"
@@ -70,7 +70,7 @@
                                     </v-col>
                                 </v-row>
                             </v-container>
-                        </v-card>
+                        </v-card> -->
 
                         <v-card
                             class="mx-auto bg-transparent"
@@ -174,7 +174,7 @@
                     </v-form>
                 </v-col>
 
-                <!-- <v-col
+                <v-col
                     :cols="false"
                     md="5"
                     class="md-hidden"
@@ -185,7 +185,7 @@
                         background-repeat: no-repeat;
                         background-size: contain;
                     "
-                ></v-col> -->
+                ></v-col>
             </v-row>
         </v-main>
 
