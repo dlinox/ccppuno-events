@@ -37,10 +37,10 @@ class Member extends Model
 
     protected $dates = ['pre_registration_date'];
 
-    public function getPreRegistrationDateAttribute($value)
-    {
-        return Carbon::createFromFormat('d/m/Y H:i:s', $value);
-    }
+    // public function getPreRegistrationDateAttribute($value)
+    // {
+    //     return Carbon::createFromFormat('d/m/Y H:i:s', $value);
+    // }
 
     public function setPreRegistrationDateAttribute($value)
     {
@@ -51,4 +51,5 @@ class Member extends Model
     {
         return $this->hasMany(Payment::class);
     }
+    
 }

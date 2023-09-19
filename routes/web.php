@@ -11,8 +11,10 @@ Route::get('/', function () {
 });
 
 Route::post('/register', [RegisterController::class, 'store']);
+Route::get('/payment-registration/{document}/{email}', [RegisterController::class, 'paymentRegister']);
 
-Route::get('/sheets', [RegisterController::class, 'sheets']);
+
+// Route::get('/sheets', [RegisterController::class, 'sheets']);
 
 
 Route::middleware('guest')->get('/login', function () {
@@ -22,6 +24,10 @@ Route::post('/sign-in', [AuthController::class, 'signIn']);
 Route::delete('/sign-out', [AuthController::class, 'signOut']);
 
 
-Route::middleware('auth')->get('/admin', [AdminController::class, 'index']);
-Route::middleware('auth')->post('/admin/update-menber-sheet', [AdminController::class, 'updateCell']);
 
+
+Route::middleware('auth')->get('/admin', [AdminController::class, 'index']);
+Route::middleware('auth')->post('/admin/validate-pre-registration', [AdminController::class, 'validatePreRegistration']);
+Route::middleware('auth')->get('/admin/members-aprovet', [AdminController::class, 'memberAprovet']);
+
+Route::middleware('auth')->post('/admin/validate-payment', [AdminController::class, 'validatePayment']);

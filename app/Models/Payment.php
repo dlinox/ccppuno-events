@@ -16,9 +16,9 @@ class Payment extends Model
     protected $casts = [
         'series' => 'string',
         'amount' => 'decimal:2',
-        'payment_date' => 'date',
+        // 'payment_date' => 'date',
         'observations' => 'string',
-        'voucher_image_path' => 'string',
+        // 'voucher_image_path' => 'string',
         'status' => 'string', // o 'enum' si defines un custom cast para manejar ENUMs
     ];
 
@@ -27,6 +27,10 @@ class Payment extends Model
         return $this->belongsTo(Member::class);
     }
 
+    public function getVoucherImagePathAttribute($value)
+    {
+        return asset('storage/' . $value);
+    }
 
     public function event()
     {

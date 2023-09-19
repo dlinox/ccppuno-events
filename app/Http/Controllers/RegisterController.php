@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PaymentRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\Member;
 use App\Models\Payment;
@@ -13,19 +14,20 @@ use Illuminate\Support\Facades\Storage;
 
 use Google_Client;
 use Google_Service_Sheets;
+use Illuminate\Support\Facades\Crypt;
+use Inertia\Inertia;
 
 class RegisterController extends Controller
 {
-    public function store(RegisterRequest $request)
+    public function store(PaymentRequest $request)
     {
 
         // Iniciar transacción para asegurar integridad de datos
         DB::beginTransaction();
 
         try {
-            // Crear miembro
-            $memberData = $request->only(['document', 'name', 'paternal_surname', 'maternal_surname', 'email', 'phone', 'collegiate_code']);
-            $member = Member::create($memberData);
+
+            $member = Member::find($request->memberId);
 
             // Manejar subida de archivo
             if ($request->hasFile('voucher_image_file')) {
@@ -56,40 +58,20 @@ class RegisterController extends Controller
         }
     }
 
-    public function sheets()
+    function paymentRegister($document, $email)
     {
 
-        $client = new Google_Client();
-        $client->setApplicationName('Google Sheets and Laravel');
-        $client->setScopes([Google_Service_Sheets::SPREADSHEETS]);
-        $client->setAccessType('offline');
-        $client->setAuthConfig(storage_path('app/google-sheets.json')); // Asegúrate de apuntar al archivo JSON
+        $_document = Crypt::decryptString($document);
+        $_email = Crypt::decryptString($email);
+        $member = Member::where('document', $_document)->where('email', $_email)->first();
 
+        $payment = Payment::where('member_id', $member->id)->get();
 
-        $sheets = new Google_Service_Sheets($client);
-
-        $spreadsheetId = '19UcWzZ6qkcZlk6wg_wWYWLxpe1YgJf_uzOfoTZe5U8k';
-        $range = 'Respuestas de formulario 1!A1:K10';  // Por ejemplo, de la hoja 'Sheet1', celdas de A1 hasta D10.
-
-
-        // dd(file_get_contents(storage_path('app/google-sheets.json')));
-
-        $response = $sheets->spreadsheets_values->get($spreadsheetId, $range);
-        $dataFromSheet = $response->getValues();
-
-
-
-        $headers = array_shift($dataFromSheet); // Extraemos la primera fila para usarla como encabezados
-
-        // Convertimos el resto de la matriz bidimensional en una matriz de diccionarios usando los encabezados
-        $convertedData = array_map(function ($row) use ($headers) {
-            $row = array_pad($row, count($headers), null);
-            return array_combine($headers, $row);
-        }, $dataFromSheet);
-
-        // Convierte a JSON si lo necesitas
-        $jsonData = json_encode($convertedData);
-
-        echo $jsonData;
+        return Inertia::render('PaymentRegister', [
+            'member' => $member,
+            'payment' => $payment,
+            '_document' => $_document,
+            '_email' => $_email,
+        ]);
     }
 }

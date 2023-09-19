@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\AprovePreRegistrationMail;
+use App\Models\Member;
+use App\Models\Payment;
+use Google\Service\DriveActivity\Create;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -10,6 +14,9 @@ use Inertia\Inertia;
 use Google_Client;
 use Google_Service_Sheets;
 use Google_Service_Sheets_ValueRange;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
@@ -20,16 +27,78 @@ class AdminController extends Controller
         ]);
     }
 
+    public function memberAprovet(): JsonResponse
+    {
+        $members =  Member::where('state', true)->with('payments')->get();
+        return response()->json([
+            'status' =>  true,
+            'message' =>  'Exito',
+            'data' => $members,
+        ]);
+    }
 
+    public function validatePayment(Request $request): JsonResponse{
 
-    public function updateCell(Request $request)
+        $payment = Payment::find($request->pay['id']);
+        $payment->status = $request->validate;
+        
+        if($payment->save()){
+            return response()->json([
+                'status' =>  true,
+                'message' =>  'Exito',
+                'data' => $payment,
+            ]);
+        }
+
+        
+        return response()->json([
+            'status' =>  false,
+            'message' =>  'Error',
+            'data' => null,
+        ]);
+
+    }
+
+    function validatePreRegistration(Request $request): JsonResponse
+    {
+        $existMember = Member::where('document', $request->member['document'])->first();
+
+        if ($existMember) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Persona ya esta registrada',
+                'data' => null,
+            ]);
+        }
+
+        $member = Member::create($request->member);
+
+        if ($member->state) {
+
+            $data = [
+                'document' => Crypt::encryptString($member['document']),
+                'email' => Crypt::encryptString($member['email'])
+            ];
+
+            Mail::to('nearlino20@gmail.com')->send(new AprovePreRegistrationMail($data));
+        }
+        $this->updateCell($request->sheet);
+        return response()->json([
+            'status' => true,
+            'message' => 'Persona registrada',
+            'data' => $member,
+        ]);
+    }
+
+    protected function updateCell($request)
     {
 
         $spreadsheetId = "19UcWzZ6qkcZlk6wg_wWYWLxpe1YgJf_uzOfoTZe5U8k";
-        $cell = $request->row;
+        $cell = $request['indexRow'];
+        $value = $request['valueCell'];
 
         $client = new Google_Client();
-        
+
         $client->setAuthConfig(storage_path('app/google-sheets.json'));  // Ajusta la ruta a tu archivo JSON de credenciales.
         $client->addScope(Google_Service_Sheets::SPREADSHEETS);
 
@@ -38,7 +107,7 @@ class AdminController extends Controller
         // Prepara el rango y los valores para la actualización
         $range = "Respuestas de formulario 1!K$cell";  // Ejemplo: 'Sheet1!A2'
         $body = new Google_Service_Sheets_ValueRange([
-            'values' => [["SII"]]  // El valor que deseas establecer
+            'values' => [[$value]]  // El valor que deseas establecer
         ]);
 
         $params = [
