@@ -5,13 +5,13 @@
             <v-row no-gutters>
                 <v-col cols="12" md="7" class="col-form">
                     <div class="mx-10 pt-5">
-                        <!-- <h1 class="text-md-h2 text-h3 font-weight-black">
+                        <h1 class="text-md-h2 text-h3 font-weight-black">
                             GUBER 2023
                         </h1>
                         <h3 class="text-primary">
-                            IX CONVENSION NACIONAL CONTABILIDAD GUBERNAMENTAL Y
+                            IX CONVENCION NACIONAL CONTABILIDAD GUBERNAMENTAL Y
                             ADMINISTRACIÓN PÚBLICA
-                        </h3> -->
+                        </h3>
                     </div>
 
                     <v-form ref="formRegister" @submit.prevent="submit">
@@ -35,7 +35,7 @@
                                             validados posteriormente.
                                         </v-alert>
                                     </v-col>
-                                    <!-- <v-col cols="12" class="d-flex">
+                                    <v-col cols="12" class="d-flex">
                                         <v-text-field
                                             density="compact"
                                             v-model="form.collegiate_code"
@@ -67,12 +67,6 @@
                                                 </v-tooltip>
                                             </template>
                                         </v-text-field>
-                                    </v-col> -->
-                                    <v-col cols="12">
-                                        {{ member }}
-                                    </v-col>
-                                    <v-col cols="12">
-                                        {{ payment }}
                                     </v-col>
                                 </v-row>
                             </v-container>
