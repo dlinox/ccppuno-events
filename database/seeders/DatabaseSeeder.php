@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Event;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -15,6 +16,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        User::create([
+            'first_name' => 'Lino',
+            'last_name' => 'Puma', 
+            'email' => 'nearlino20@gmail.com', 
+            'password' => 'test123***', 
+            'role' => 'admin'
+        ]);
 
         Event::create([
             'name' => 'GUBER 2023',

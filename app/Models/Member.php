@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,23 +11,41 @@ class Member extends Model
     use HasFactory;
 
     protected $fillable = [
-        'document', 'name', 'paternal_surname', 'maternal_surname', 'email', 'phone', 'collegiate_code'
+
+        'document',
+        'name',
+        'lastname',
+        'deparment',
+        'modality',
+        'type',
+        'email',
+        'phone',
+        'whatsapp',
+        'collegiate_code',
+        'pre_registration_date',
+        'state',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
+    const MODALITIES = ['PRESENCIAL', 'VIRTUAL'];
+    const TYPES = ['PLENO', 'OBSERVADOR', 'ESTUDIANTE', 'AGREMIADO'];
+
+
+
     protected $casts = [
-        'document' => 'string',
-        'name' => 'string',
-        'paternal_surname' => 'string',
-        'maternal_surname' => 'string',
-        'email' => 'string',
-        'phone' => 'string',
-        'collegiate_code' => 'string',
+        'state' => 'boolean',
     ];
+
+    protected $dates = ['pre_registration_date'];
+
+    public function getPreRegistrationDateAttribute($value)
+    {
+        return Carbon::createFromFormat('d/m/Y H:i:s', $value);
+    }
+
+    public function setPreRegistrationDateAttribute($value)
+    {
+        $this->attributes['pre_registration_date'] = Carbon::createFromFormat('d/m/Y H:i:s', $value)->format('Y-m-d H:i:s');
+    }
 
     public function payments()
     {
