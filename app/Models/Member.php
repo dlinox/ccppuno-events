@@ -6,15 +6,22 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Member extends Model
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Auth\Authenticatable;
+
+class Member extends Model implements AuthenticatableContract
 {
-    use HasFactory;
+    use HasFactory, Authenticatable;
+
+    const MODALITIES = ['PRESENCIAL', 'VIRTUAL'];
+    const TYPES = ['PLENO', 'OBSERVADOR', 'ESTUDIANTE', 'AGREMIADO'];
 
     protected $fillable = [
 
         'document',
         'name',
-        'lastname',
+        'paternal_surname',
+        'maternal_surname',
         'deparment',
         'modality',
         'type',
@@ -22,17 +29,21 @@ class Member extends Model
         'phone',
         'whatsapp',
         'collegiate_code',
-        'pre_registration_date',
         'state',
+        'password',
+        'email_verified_at',
+        'pre_registration_date',
     ];
 
-    const MODALITIES = ['PRESENCIAL', 'VIRTUAL'];
-    const TYPES = ['PLENO', 'OBSERVADOR', 'ESTUDIANTE', 'AGREMIADO'];
 
 
+    protected $hidden = [
+        'password',
+    ];
 
     protected $casts = [
         'state' => 'boolean',
+        'password' => 'hashed',
     ];
 
     protected $dates = ['pre_registration_date'];
@@ -41,6 +52,17 @@ class Member extends Model
     // {
     //     return Carbon::createFromFormat('d/m/Y H:i:s', $value);
     // }
+
+    public $headers =  [
+        ['text' => "DNI", 'value' => "document", 'short' => false, 'order' => 'ASC'],
+        ['text' => "Nombre", 'value' => "name", 'short' => false, 'order' => 'ASC'],
+        ['text' => "Modalidad", 'value' => "modality", 'short' => false, 'order' => 'ASC'],
+        ['text' => "Participante", 'value' => "type", 'short' => false, 'order' => 'ASC'],
+        ['text' => "Correo", 'value' => "email", 'short' => false, 'order' => 'ASC'],
+        ['text' => "Celular", 'value' => "phone", 'short' => false, 'order' => 'ASC'],
+        ['text' => "Cod. Agremiado", 'value' => "collegiate_code", 'short' => false, 'order' => 'ASC'],
+        ['text' => "Correo Verificado", 'value' => "email_verified_at", 'short' => false, 'order' => 'ASC'],
+    ];
 
     public function setPreRegistrationDateAttribute($value)
     {
@@ -51,5 +73,4 @@ class Member extends Model
     {
         return $this->hasMany(Payment::class);
     }
-    
 }

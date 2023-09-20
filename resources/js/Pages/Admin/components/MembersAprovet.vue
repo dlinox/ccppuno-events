@@ -107,12 +107,12 @@ const validatePayment = async (pay, validate) => {
         validate: validate,
     };
     let res = await axios.post("/admin/validate-payment", data);
-    console.log(res.data);
+
 };
 
 const init = async () => {
     let res = await axios.get("/admin/members-aprovet");
-    console.log(res.data);
+
     members.value = res.data.data;
 };
 init();

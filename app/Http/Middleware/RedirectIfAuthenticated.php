@@ -20,6 +20,11 @@ class RedirectIfAuthenticated
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
+
+            if ($guard == "member" && Auth::guard($guard)->check()) {
+                return redirect('/m');
+            }
+            
             if (Auth::guard($guard)->check()) {
                 return redirect('/admin');
             }

@@ -1,9 +1,10 @@
 <template>
+    <slot name="header" :filter="formfilters"> </slot>
+
     <template v-if="items.total == 0">
         <NoData />
     </template>
     <template v-else>
-        <slot name="header" :filter="formfilters"> </slot>
         <v-table class="mt-3 bg-">
             <thead>
                 <tr>

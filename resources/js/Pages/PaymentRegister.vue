@@ -222,7 +222,7 @@ const form = useForm({
 });
 
 watch(isMember, (val) => {
-    console.log(val);
+
     form.isMember = val;
     form.collegiate_code = null;
 });
@@ -230,7 +230,7 @@ watch(isMember, (val) => {
 const submit = async () => {
     const { valid } = await formRegister.value.validate();
     if (!valid) return;
-    console.log("valido");
+  
     form.post("/register", {
         onSuccess: () => {
             console.log("registro exitoso");

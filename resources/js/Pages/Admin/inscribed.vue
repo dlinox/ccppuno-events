@@ -7,12 +7,23 @@
             <template #extension>
                 <v-spacer></v-spacer>
                 <v-tabs v-model="tab" color="primary" align-tabs="end">
-                    <v-tab :value="1" @click="() => {router.get('/admin')}">
+                    <v-tab
+                        :value="1"
+                        @click="
+                            () => {
+                                router.get('/admin');
+                            }
+                        "
+                    >
                         PREINSCRIPCIÓN
                     </v-tab>
                     <v-tab
                         :value="2"
-                        @click="() => {router.get('/admin/inscribed')}"
+                        @click="
+                            () => {
+                                router.get('/admin/inscribed');
+                            }
+                        "
                     >
                         INSCRITOS
                     </v-tab>
@@ -21,7 +32,6 @@
         </v-app-bar>
 
         <v-main>
-  
             <v-container fluid>
                 <v-card>
                     <v-card-item>
@@ -36,63 +46,20 @@
                                     <v-col cols="6">
                                         <v-text-field
                                             v-model="filter.search"
-                                            label="Buscar"
+                                            label="Buscar por DNI"
                                         />
                                     </v-col>
                                 </v-row>
                             </template>
                             <template v-slot:action="{ item }">
-                                <v-btn @click="openDialogPayment(item)"
-                                    >Pago</v-btn
-                                >
+                                <v-btn @click="sendEmail(item)">
+                                    Enviar CORREO
+                                </v-btn>
                             </template>
                         </DataTable>
                     </v-card-item>
                 </v-card>
             </v-container>
-            <v-dialog v-model="dialogPayment">
-                <v-card class="mx-auto" min-width="350">
-                    <v-img
-                        :src="paymentValidate.voucher_image_path"
-                        contain
-                    ></v-img>
-                    <v-list-item subtitle="SERIE" class="border-b">
-                        <v-list-item-title>
-                            {{ paymentValidate.series }}
-                        </v-list-item-title>
-                    </v-list-item>
-
-                    <v-list-item subtitle="MONTO" class="border-b">
-                        <v-list-item-title>
-                            S/. {{ paymentValidate.amount }}
-                        </v-list-item-title>
-                    </v-list-item>
-
-                    <v-list-item subtitle="FEHCA DE PAGO" class="border-b">
-                        <v-list-item-title>
-                            {{ paymentValidate.payment_date }}
-                        </v-list-item-title>
-                    </v-list-item>
-                    <v-card-actions>
-                        <v-btn
-                            @click="
-                                validatePayment(paymentValidate, 'RECHAZADO')
-                            "
-                            variant="tonal"
-                            color="red"
-                            >Rechazar</v-btn
-                        >
-                        <v-spacer></v-spacer>
-                        <v-btn
-                            @click="
-                                validatePayment(paymentValidate, 'ACEPTADO')
-                            "
-                            variant="flat"
-                            >Aceptar</v-btn
-                        >
-                    </v-card-actions>
-                </v-card>
-            </v-dialog>
         </v-main>
     </v-app>
 </template>
@@ -107,27 +74,18 @@ const props = defineProps({
     perPageOptions: Array,
 });
 
-const url = "/admin";
-const tab = ref(1);
+const url = "/admin/inscribed";
+const tab = ref(2);
 
-const paymentValidate = ref(null);
-const dialogPayment = ref(false);
+const sendEmail = (item) => {
+    
 
-const openDialogPayment = (item) => {
-
-    paymentValidate.value = item.payments[0];
-    dialogPayment.value = true;
-};
-const validatePayment = (payment, value) => {
-    let data = {
-        payment: payment,
-        value: value,
-    };
-
-    router.visit("/admin/validate-payment", {
+    router.visit("/admin/send-email", {
         method: "post",
-        data: data,
-        onSuccess: (page) => {},
+        data: item,
+        onSuccess: (page) => {
+            alert('Correo Enviado');
+        },
         onError: (errors) => {},
         onFinish: (visit) => {},
     });

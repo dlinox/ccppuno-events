@@ -1,14 +1,17 @@
 <template>
     <v-app id="inspire-auth" class="h-screen">
         <v-card width="350" class="mx-auto my-auto">
+
             <v-img
                 src="https://lh6.googleusercontent.com/1prBFR9Y3dfmHcgaYVd2nrFs_w3xLuX-H1OneZGmLA5yKqutDRT8BOB8sTXdoDF378Wao9B8zISKnnYNQHl0EuPbk90Ec0RzJkKhJHv-Frm8-JFHErpjNHxdchvz5iGVeg=w1584"
             ></v-img>
 
             <v-container>
                 <v-row>
+                
+
                     <v-col cols="12" class="text-center">
-                        <h3 class="text-h5">Iniciar Sesión - ADMIN</h3>
+                        <h3 class="text-h5">Iniciar Sesión - Participante</h3>
                     </v-col>
 
                     <v-col cols="12" class="text-center">
@@ -49,12 +52,12 @@
 import { useForm } from "@inertiajs/vue3";
 
 const form = useForm({
-    email: "ccppuno@admin.com",
+    email: "",
     password: "",
 });
 
 const submit = async () => {
-    form.post("/sign-in", {
+    form.post("/member/sign-in", {
         onError: (e) => {
             console.log(e);
         },

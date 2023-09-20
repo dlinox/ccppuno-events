@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PaymentRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Mail\EmailVerificationMail;
 use App\Models\Member;
 use App\Models\Payment;
 use Illuminate\Http\Request;
@@ -15,11 +16,12 @@ use Illuminate\Support\Facades\Storage;
 use Google_Client;
 use Google_Service_Sheets;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class RegisterController extends Controller
 {
-    public function store(PaymentRequest $request)
+    public function store(RegisterRequest $request)
     {
 
         // Iniciar transacción para asegurar integridad de datos
@@ -28,6 +30,20 @@ class RegisterController extends Controller
         try {
 
             $member = Member::find($request->memberId);
+
+            $memberData = $request->only(
+                'document',
+                'name',
+                'paternal_surname',
+                'maternal_surname',
+                'email',
+                'phone',
+                'collegiate_code',
+                'modality',
+                'type',
+            );
+
+            $member = Member::create($memberData);
 
             // Manejar subida de archivo
             if ($request->hasFile('voucher_image_file')) {
@@ -46,6 +62,15 @@ class RegisterController extends Controller
 
             // Asociar el pago al miembro
             $member->payments()->save($payment);
+
+            $emailHash = Crypt::encryptString($request->email);
+
+            $dataEmail = [
+                'name' => $request->name . ' ' . $request->paternal_surname . ' ' . $request->maternal_surname,
+                'urlVerification' => url("/verification-email/$emailHash")
+            ];
+
+            Mail::to($request->email)->send(new EmailVerificationMail($dataEmail));
 
             // Finalizar transacción
             DB::commit();

@@ -7,7 +7,7 @@
             src="/images/no_data.svg"
         ></v-img>
         <div class="text-center text-h6 my-4 text-secondary">
-            Aun no se ingresaron datos
+            No hay datos para mostrar
         </div>
     </v-card>
 </template>

@@ -1,34 +1,38 @@
 <template>
-     <Head title="Registro | GUBER 2023" />
+    <Head title="Registro | GUBER 2023" />
     <v-app id="app-landing">
         <v-main class="h-100">
             <v-row no-gutters>
-                
                 <v-col cols="12" md="7" class="col-form">
-
-                  <div class="mx-10 pt-5">
-                        <h1 class="text-md-h2 text-h3 font-weight-black">GUBER 2023</h1>
+                    <div class="mx-10 pt-5">
+                        <h1 class="text-md-h2 text-h3 font-weight-black">
+                            GUBER 2023
+                        </h1>
                         <h3 class="text-primary">
-                            IX CONVENSION NACIONAL CONTABILIDAD GUBERNAMENTAL Y
+                            IX CONVENCIÓN NACIONAL CONTABILIDAD GUBERNAMENTAL Y
                             ADMINISTRACIÓN PÚBLICA
                         </h3>
                     </div>
 
                     <v-form ref="formRegister" @submit.prevent="submit">
-                        <v-card class="mt-4 mx-auto bg-transparent" flat max-width="600" >
+                        <v-card
+                            class="mt-4 mx-auto bg-transparent"
+                            flat
+                            max-width="600"
+                        >
                             <v-toolbar
                                 density="compact"
                                 title="Datos Personales"
                                 color="primary"
-                                
                             >
                             </v-toolbar>
                             <v-container>
                                 <v-row>
-
                                     <v-col cols="12">
                                         <v-alert type="info" variant="tonal">
-                                            Por favor, complete todos los campos de manera cuidadosa, ya que serán validados posteriormente.
+                                            Por favor, complete todos los campos
+                                            de manera cuidadosa, ya que serán
+                                            validados posteriormente.
                                         </v-alert>
                                     </v-col>
                                     <v-col cols="12" sm="6" class="d-flex">
@@ -124,12 +128,46 @@
                                             :error-messages="form.errors.phone"
                                         />
                                     </v-col>
+
+                                    <v-col cols="12" sm="6">
+                                        <v-select
+                                            v-model="form.modality"
+                                            :rules="[isRequired]"
+                                            label="Modalidad de participación"
+                                            :items="['PRESENCIAL', 'VIRTUAL']"
+                                            :error-messages="
+                                                form.errors.modality
+                                            "
+                                        />
+                                    </v-col>
+
+                                    <v-col cols="12" sm="6">
+                                        <v-select
+                                            v-model="form.type"
+                                            :rules="[isRequired]"
+                                            label="Participante"
+                                            :items="[
+                                                'PLENO',
+                                                'OBSERVADOR',
+                                                'ESTUDIANTE',
+                                            ]"
+                                            :error-messages="form.errors.type"
+                                        />
+                                    </v-col>
                                 </v-row>
                             </v-container>
                         </v-card>
 
-                        <v-card class="mx-auto bg-transparent" flat max-width="600">
-                            <v-toolbar   color="primary" density="compact" title="Datos del pago">
+                        <v-card
+                            class="mx-auto bg-transparent"
+                            flat
+                            max-width="600"
+                        >
+                            <v-toolbar
+                                color="primary"
+                                density="compact"
+                                title="Datos del pago"
+                            >
                             </v-toolbar>
 
                             <v-container>
@@ -209,7 +247,6 @@
                             variant="tonal"
                             class="my-4 mx-auto"
                             max-width="600"
-                            
                         >
                             <v-btn
                                 :loading="form.processing"
@@ -263,6 +300,8 @@ const form = useForm({
     phone: null,
     collegiate_code: null,
     isMember: false,
+    modality: null,
+    type: null,
 
     series: null,
     amount: null,
