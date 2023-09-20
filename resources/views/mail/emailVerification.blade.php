@@ -57,7 +57,7 @@
   <div class="email-container">
     <img src="https://lh6.googleusercontent.com/1prBFR9Y3dfmHcgaYVd2nrFs_w3xLuX-H1OneZGmLA5yKqutDRT8BOB8sTXdoDF378Wao9B8zISKnnYNQHl0EuPbk90Ec0RzJkKhJHv-Frm8-JFHErpjNHxdchvz5iGVeg=w1584" alt="Imagen descriptiva" class="header-image">
     <div class="content">
-      <h2>¡Gracias por inscribirte en GUBER2023!</h2>
+      <h2>¡Gracias por registrarte en GUBER2023!</h2>
       <p>¡Hola {{$data['name']}}!</p>
       <p>Estás a punto de asegurar tu lugar en GUBER2023. Antes de continuar, necesitamos que verifiques tu dirección de correo electrónico para garantizar una comunicación fluida.</p>
       <a href="{{$data['urlVerification']}}" class="btn">Verificar Correo</a>

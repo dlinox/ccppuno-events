@@ -278,6 +278,31 @@
         <v-snackbar v-model="snackbarSuccess" multi-line color="success">
             ¡Registro realizado con exito.!
         </v-snackbar>
+
+        <v-dialog v-model="dialogSuccess" max-width="400">
+            <v-card class="mx-auto">
+                <!-- Título de la tarjeta -->
+                <v-card-title> ¡Casi has terminado! </v-card-title>
+
+                <!-- Contenido de la tarjeta -->
+                <v-card-text>
+                    Te agradecemos por registrarte. Para continuar y disfrutar
+                    de todas las funcionalidades, es necesario
+                    <strong>validar tu dirección de correo electrónico</strong>.
+                    Hemos enviado un enlace de verificación a tu correo. Por
+                    favor, revisa tu bandeja de entrada (o carpeta de spam) y
+                    haz clic en el enlace para completar el proceso. Si no ves
+                    el correo, podrías considerar esperar unos minutos.
+                </v-card-text>
+
+                <!-- Acciones (como botones) de la tarjeta -->
+                <v-card-actions>
+                    <v-btn block text @click="dialogSuccess = false"
+                        >Cerrar</v-btn
+                    >
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </v-app>
 </template>
 <script setup>
@@ -290,6 +315,8 @@ const preview_img = ref(null);
 const isMember = ref(false);
 const formRegister = ref(null);
 const snackbarSuccess = ref(false);
+
+const dialogSuccess = ref(false);
 
 const form = useForm({
     document: null,
@@ -324,6 +351,7 @@ const submit = async () => {
             console.log("registro exitoso");
             preview_img.value = null;
             snackbarSuccess.value = true;
+            dialogSuccess.value = true;
             form.reset();
         },
     });
