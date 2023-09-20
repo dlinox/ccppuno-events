@@ -90,6 +90,10 @@
                             variant="flat"
                             >Aceptar</v-btn
                         >
+
+                    </v-card-actions>
+                    <v-card-actions>
+                        <v-btn block variant="tonal" @click="dialogPayment =  false"> Cancelar </v-btn>
                     </v-card-actions>
                 </v-card>
             </v-dialog>

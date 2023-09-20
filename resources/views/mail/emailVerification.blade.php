@@ -41,8 +41,9 @@
       padding: 12px;
       text-align: center;
       margin: 20px auto;
-      background-color: #007bff;
-      color: #ffffff;
+      background-color: white;
+      border: 2px solid #007bff;
+      color: #007bff;
       text-decoration: none;
       border-radius: 7px;
     }
