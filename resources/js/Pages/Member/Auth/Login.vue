@@ -20,7 +20,7 @@
                                 v-model="form.email"
                                 prependInnerIcon="mdi-account"
                                 class="mb-4"
-                                label="Usuario"
+                                label="Correo"
                             />
                             <v-text-field
                                 v-model="form.password"
