@@ -35,7 +35,7 @@
                                             validados posteriormente.
                                         </v-alert>
                                     </v-col>
-                                    <v-col cols="12" sm="6" class="d-flex">
+                                    <!-- <v-col cols="12" sm="6" class="d-flex">
                                         <v-text-field
                                             density="compact"
                                             v-model="form.collegiate_code"
@@ -67,9 +67,9 @@
                                                 </v-tooltip>
                                             </template>
                                         </v-text-field>
-                                    </v-col>
+                                    </v-col> -->
 
-                                    <v-col cols="12" sm="6">
+                                    <v-col cols="12" md="6">
                                         <v-text-field
                                             v-model="form.document"
                                             label="DNI"
@@ -80,7 +80,7 @@
                                         />
                                     </v-col>
 
-                                    <v-col cols="12" sm="6">
+                                    <v-col cols="12" md="6">
                                         <v-text-field
                                             v-model="form.paternal_surname"
                                             label="Apellido Paterno"
@@ -91,7 +91,7 @@
                                         />
                                     </v-col>
 
-                                    <v-col cols="12" sm="6">
+                                    <v-col cols="12" md="6">
                                         <v-text-field
                                             v-model="form.maternal_surname"
                                             label="Apellido Materno"
@@ -102,7 +102,7 @@
                                         />
                                     </v-col>
 
-                                    <v-col cols="12">
+                                    <v-col cols="12" md="6">
                                         <v-text-field
                                             v-model="form.name"
                                             label="Nombres"
@@ -111,7 +111,7 @@
                                         />
                                     </v-col>
 
-                                    <v-col cols="12" sm="6">
+                                    <v-col cols="12" md="6">
                                         <v-text-field
                                             v-model="form.email"
                                             label="Email"
@@ -120,7 +120,7 @@
                                         />
                                     </v-col>
 
-                                    <v-col cols="12" sm="6">
+                                    <v-col cols="12" md="6">
                                         <v-text-field
                                             v-model="form.phone"
                                             :rules="[isRequired]"
@@ -129,7 +129,7 @@
                                         />
                                     </v-col>
 
-                                    <v-col cols="12" sm="6">
+                                    <v-col cols="12" md="6">
                                         <v-select
                                             v-model="form.modality"
                                             :rules="[isRequired]"
@@ -141,7 +141,7 @@
                                         />
                                     </v-col>
 
-                                    <v-col cols="12" sm="6">
+                                    <v-col cols="12" md="6">
                                         <v-select
                                             v-model="form.type"
                                             :rules="[isRequired]"
