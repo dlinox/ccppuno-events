@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name', 80);
             $table->string('paternal_surname', 100);
             $table->string('maternal_surname', 100);
+            $table->string('degree', 20)->nullable();
             $table->string('deparment', 100)->nullable();
             $table->enum('modality', ['PRESENCIAL', 'VIRTUAL'])->nullable();
             $table->enum('type', ['PLENO', 'OBSERVADOR', 'ESTUDIANTE', 'AGREMIADO'])->nullable();

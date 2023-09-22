@@ -68,8 +68,13 @@
                                             </template>
                                         </v-text-field>
                                     </v-col> -->
+                                    <v-col cols="12" md="4">
 
-                                    <v-col cols="12" md="6">
+                                        <v-select v-model="form.degree" :items="degrees"  label="Título">
+                                        </v-select>
+                                    </v-col>
+
+                                    <v-col cols="12" md="8">
                                         <v-text-field
                                             v-model="form.document"
                                             label="DNI"
@@ -318,6 +323,17 @@ const snackbarSuccess = ref(false);
 
 const dialogSuccess = ref(false);
 
+const degrees = [
+    "Bach.",
+    "Lic.",
+    "Ing.",
+    "Arq.",
+    "Med.",
+    "Mg.",
+    "Dr.",
+    "Abg.",
+    "CP.",
+];
 const form = useForm({
     document: null,
     name: null,
@@ -329,6 +345,7 @@ const form = useForm({
     isMember: false,
     modality: null,
     type: null,
+    degree: null,
 
     series: null,
     amount: null,

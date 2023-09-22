@@ -23,6 +23,7 @@ class Member extends Model implements AuthenticatableContract
         'paternal_surname',
         'maternal_surname',
         'deparment',
+        'degree',
         'modality',
         'type',
         'email',

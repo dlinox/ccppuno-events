@@ -41,6 +41,7 @@ class RegisterController extends Controller
                 'collegiate_code',
                 'modality',
                 'type',
+                'degree',
             );
 
             $member = Member::create($memberData);
