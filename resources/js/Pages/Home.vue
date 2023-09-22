@@ -324,6 +324,7 @@ const snackbarSuccess = ref(false);
 const dialogSuccess = ref(false);
 
 const degrees = [
+    "CPC.",
     "Bach.",
     "Lic.",
     "Ing.",
@@ -333,6 +334,7 @@ const degrees = [
     "Dr.",
     "Abg.",
     "CP.",
+    
 ];
 const form = useForm({
     document: null,
