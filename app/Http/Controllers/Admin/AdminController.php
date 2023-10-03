@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\InscribedExport;
 use App\Http\Controllers\Controller;
 use App\Mail\AprovePreRegistrationMail;
 use App\Mail\WelcomeMail;
@@ -18,6 +19,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminController extends Controller
 {
@@ -70,7 +72,6 @@ class AdminController extends Controller
             $searchTerm = $request->search;
             $query->where('document', 'like', '%' . $searchTerm . '%');
         }
-
 
         $query->where('state', true);
         $query->whereNotNull('email_verified_at');
@@ -126,20 +127,23 @@ class AdminController extends Controller
         }
     }
 
-    public function sendEmail(Request $request){
+    public function sendEmail(Request $request)
+    {
 
         $emailHash = Crypt::encryptString($request->email);
-        
+
         $dataEmail = [
             'name' => $request->name . ' ' . $request->paternal_surname . ' ' . $request->maternal_surname,
             'url' => url("/create-password/$emailHash")
         ];
 
         Mail::to($request->email)->send(new WelcomeMail($dataEmail));
-
     }
 
-    function validatePreRegistration(Request $request): JsonResponse
+
+
+
+    public function validatePreRegistration(Request $request): JsonResponse
     {
         $existMember = Member::where('document', $request->member['document'])->first();
 
@@ -169,6 +173,17 @@ class AdminController extends Controller
             'data' => $member,
         ]);
     }
+
+    public function exportInscribed()
+    {
+
+        $fecha = date('Y-m-d');
+        $nameFile = 'member_inscribed_' . $fecha . '.xlsx';
+
+        return Excel::download(new InscribedExport, $nameFile);
+    }
+
+
 
     // protected function updateCell($request)
     // {

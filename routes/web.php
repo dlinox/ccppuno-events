@@ -65,6 +65,8 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::middleware('auth')->post('/validate-payment', [AdminController::class, 'validatePayment']);
     Route::middleware('auth')->post('/send-email', [AdminController::class, 'sendEmail']);
 
+    Route::middleware('auth')->get('/export-inscribed', [AdminController::class, 'exportInscribed']);
+
     Route::post('/sign-in', [AuthController::class, 'signIn']);
     Route::delete('/sign-out', [AuthController::class, 'signOut']);
 });

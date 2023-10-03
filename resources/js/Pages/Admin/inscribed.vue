@@ -42,8 +42,17 @@
                             :url="url"
                         >
                             <template v-slot:header="{ filter }">
-                                <v-row class="py-3" justify="end">
-                                    <v-col cols="6">
+                                <v-row class="py-3" >
+                                    <v-col cols="4" md="4">
+                                        <v-btn
+                                            prepend-icon="mdi-file-excel-box-outline"
+                                            color="green"
+                                            @click="exportarExcel"
+                                            >Exportar</v-btn
+                                        >
+                                    </v-col>
+
+                                    <v-col cols="8" md="6">
                                         <v-text-field
                                             v-model="filter.search"
                                             label="Buscar por DNI"
@@ -67,6 +76,7 @@
 import { ref } from "vue";
 import { router } from "@inertiajs/vue3";
 import DataTable from "@/components/DataTable.vue";
+import axios from "axios";
 const props = defineProps({
     items: Object,
     headers: Array,
@@ -77,66 +87,43 @@ const props = defineProps({
 const url = "/admin/inscribed";
 const tab = ref(2);
 
-const sendEmail = (item) => {
-    
+const exportarExcel = async () => {
+    try {
+        const response = await axios.get('export-inscribed', {
+            responseType: "blob", // Indicar que la respuesta es un archivo binario
+        });
 
+
+        const nombreArchivo = response.headers['content-disposition'].split('=')[1];
+
+
+        const blob = new Blob([response.data], {
+            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        });
+
+        const link = document.createElement("a");
+        link.href = window.URL.createObjectURL(blob);
+        link.download = nombreArchivo; // Nombre del archivo de descarga
+        link.style.display = "none";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+const sendEmail = (item) => {
     router.visit("/admin/send-email", {
         method: "post",
         data: item,
         onSuccess: (page) => {
-            alert('Correo Enviado');
+            alert("Correo Enviado");
         },
         onError: (errors) => {},
         onFinish: (visit) => {},
     });
 };
-
-// const data = ref({
-//     member: {
-//         document: null,
-//         name: null,
-//         lastname: null,
-//         deparment: null,
-//         modality: null,
-//         type: null,
-//         email: null,
-//         phone: null,
-//         whatsapp: null,
-//         collegiate_code: null,
-//         pre_registration_date: null,
-//         state: null,
-//     },
-//     sheet: {
-//         valueCell: null,
-//         indexRow: null,
-//     },
-// });
-// const validateMember = async (indexRow, value, item) => {
-//     console.log(item);
-
-//     data.value.member.document = item["N° DNI"];
-//     data.value.member.name = item["NOMBRES"];
-//     data.value.member.lastname = item["APELLIDOS"];
-//     data.value.member.deparment = item["DEPARTAMENTO"];
-//     data.value.member.modality = item["MODALIDAD DE PARTICIPACIÓN"];
-//     data.value.member.type = item["PARTICIPANTE"];
-//     data.value.member.email = item["CORREO PERSONAL"];
-//     data.value.member.phone = item["N° CELULAR (LLAMADAS)"];
-//     data.value.member.whatsapp = item["N° WHATSAPP (MENSAJES)"];
-//     data.value.member.collegiate_code = null;
-//     data.value.member.pre_registration_date = item["Marca temporal"];
-//     data.value.member.state = value == "ACEPTADO" ? true : false;
-
-//     data.value.sheet.indexRow = indexRow + 2;
-//     data.value.sheet.valueCell = value;
-
-//     console.log(data.value);
-
-//     let res = await axios.post("/admin/validate-pre-registration", data.value);
-
-//     console.log(res.data);
-//     // console.log(rowIndex);
-// };
 
 const signOut = async () => {
     router.delete("sign-out");
