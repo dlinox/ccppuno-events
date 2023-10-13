@@ -58,29 +58,29 @@
   <div class="email-container">
     <img src="https://lh6.googleusercontent.com/1prBFR9Y3dfmHcgaYVd2nrFs_w3xLuX-H1OneZGmLA5yKqutDRT8BOB8sTXdoDF378Wao9B8zISKnnYNQHl0EuPbk90Ec0RzJkKhJHv-Frm8-JFHErpjNHxdchvz5iGVeg=w1584" alt="Imagen descriptiva" class="header-image">
     <div class="content">
-      <h2>¡Gracias por inscribirte en GUBER2023!</h2>
+      <h2>¡Gracias por registrarte en GUBER2023!</h2>
       <p>¡Hola {{$data['name']}}!</p>
+      
+      <p> Nos complace informarle que su registro se ha completado exitosamente.
+        Sin embargo, aún falta un último paso antes de que pueda acceder a su cuenta.</p>
 
-      <p>Estamos emocionados de tenerte con nosotros en GUBER2023.</p>
-
-      <!-- <a href="{{$data['url']}}" class="btn">Crear/Actualizar Contraseña</a> -->
       <p>
-
-        A continuación, encontrará los detalles de su cuenta:
+        Para garantizar la seguridad de nuestros servicios y proporcionarle una experiencia óptima, requerimos que valide su pago. Una vez que su pago sea verificado, recibirá un correo de confirmación adicional que incluirá su contraseña de acceso para su cuenta.
       </p>
 
       <p>
-        Contraseña: <strong> {{$data['password']}} </strong>
+        Por favor, tenga en cuenta que este proceso de validación de pago puede demorar un corto período de tiempo, generalmente unas horas, pero puede variar según el método de pago que haya seleccionado. Una vez que su pago haya sido confirmado, le proporcionaremos los detalles de su cuenta para que pueda acceder sin problemas.
       </p>
-
 
       <p>
-        INGRESAR <a href="{{$data['url']}}">AQUÍ.</a>
+
+        Manténgase atento a su bandeja de entrada, ya que le enviaremos un correo electrónico de confirmación tan pronto como se complete la validación de su pago.
       </p>
 
 
-      <p>Si no solicitaste este correo, por favor ignóralo. Si tienes alguna pregunta, no dudes en contactarnos.</p>
-      <p>¡Esperamos verte pronto en GUBER2023!</p>
+      <p>Si no has solicitado la inscripción en GUBER2023, simplemente ignora este correo. Estamos aquí para ayudarte con cualquier inquietud.</p>
+
+      <p>El Equipo Organizador de GUBER2023</p>
     </div>
   </div>
 </body>

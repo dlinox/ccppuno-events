@@ -69,8 +69,11 @@
                                         </v-text-field>
                                     </v-col> -->
                                     <v-col cols="12" md="4">
-
-                                        <v-select v-model="form.degree" :items="degrees"  label="Título">
+                                        <v-select
+                                            v-model="form.degree"
+                                            :items="degrees"
+                                            label="Título"
+                                        >
                                         </v-select>
                                     </v-col>
 
@@ -290,7 +293,7 @@
                 <v-card-title> ¡Casi has terminado! </v-card-title>
 
                 <!-- Contenido de la tarjeta -->
-                <v-card-text>
+                <!-- <v-card-text>
                     Te agradecemos por registrarte. Para continuar y disfrutar
                     de todas las funcionalidades, es necesario
                     <strong>validar tu dirección de correo electrónico</strong>.
@@ -298,6 +301,13 @@
                     favor, revisa tu bandeja de entrada (o carpeta de spam) y
                     haz clic en el enlace para completar el proceso. Si no ves
                     el correo, podrías considerar esperar unos minutos.
+                </v-card-text> -->
+
+                <v-card-text>
+                    Le informamos que se ha enviado un correo a su dirección de
+                    correo electrónico. Por favor, revise su bandeja de entrada
+                    y/o carpeta de spam si no encuentra el correo en su bandeja
+                    principal.
                 </v-card-text>
 
                 <!-- Acciones (como botones) de la tarjeta -->
@@ -334,7 +344,6 @@ const degrees = [
     "Dr.",
     "Abg.",
     "CP.",
-    
 ];
 const form = useForm({
     document: null,

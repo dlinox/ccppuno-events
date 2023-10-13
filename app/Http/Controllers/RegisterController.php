@@ -71,6 +71,7 @@ class RegisterController extends Controller
                 'urlVerification' => url("/verification-email/$emailHash")
             ];
 
+            
             Mail::to($request->email)->send(new EmailVerificationMail($dataEmail));
 
             // Finalizar transacción

@@ -21,6 +21,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
 
+use Illuminate\Support\Str;
+
 class AdminController extends Controller
 {
 
@@ -43,7 +45,7 @@ class AdminController extends Controller
         }
 
         $query->where('state', false);
-        $query->whereNotNull('email_verified_at');
+        // $query->whereNotNull('email_verified_at');
         $query->orderBy('created_at', 'desc');
         $query->with('payments');
 
@@ -74,7 +76,7 @@ class AdminController extends Controller
         }
 
         $query->where('state', true);
-        $query->whereNotNull('email_verified_at');
+        // $query->whereNotNull('email_verified_at');
         // Obtener resultados paginados
         $query->orderBy('created_at', 'desc');
         $items = $query->paginate($perPage)->appends($request->query());
@@ -132,9 +134,19 @@ class AdminController extends Controller
 
         $emailHash = Crypt::encryptString($request->email);
 
+        $password = Str::random(8);
+
+        $member =  Member::where('email', $request->email)->first();
+        $member->password =  $password;
+        // $member->status =  true;
+
+        $member->save();
+
         $dataEmail = [
             'name' => $request->name . ' ' . $request->paternal_surname . ' ' . $request->maternal_surname,
-            'url' => url("/create-password/$emailHash")
+            'url' => url("/login"),
+            // 'url' => url("/create-password/$emailHash"),
+            'password' => $password
         ];
 
         Mail::to($request->email)->send(new WelcomeMail($dataEmail));
