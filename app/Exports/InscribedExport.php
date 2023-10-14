@@ -28,9 +28,9 @@ class InscribedExport implements FromCollection, WithHeadings
             members.email AS CORREO,
             payments.amount AS PAGO
         "))
-        ->join('payments', 'payments.member_id' ,'members.id')
+            ->join('payments', 'payments.member_id', 'members.id')
             ->where('members.state', true)
-            ->whereNotNull('members.email_verified_at')
+            // ->whereNotNull('members.email_verified_at')
             ->orderBy('members.created_at', 'desc')
             ->get();
 
