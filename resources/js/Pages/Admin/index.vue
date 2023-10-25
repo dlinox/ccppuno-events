@@ -49,6 +49,8 @@
                         </DataTable>
                     </v-card-item>
                 </v-card>
+         
+
             </v-container>
             <v-dialog v-model="dialogPayment">
                 <v-card class="mx-auto" min-width="350">
@@ -104,6 +106,8 @@
 import { ref } from "vue";
 import { router } from "@inertiajs/vue3";
 import DataTable from "@/components/DataTable.vue";
+
+
 const props = defineProps({
     items: Object,
     headers: Array,

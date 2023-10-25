@@ -54,6 +54,9 @@ Route::name('member.')->prefix('')->group(function () {
 });
 
 
+Route::get('/certificate/{key}', [AdminController::class, 'generateCertificate']);
+
+
 Route::name('admin.')->prefix('admin')->group(function () {
 
     Route::middleware('auth')->get('/',  [AdminController::class, 'index'])->name('home');
@@ -67,8 +70,14 @@ Route::name('admin.')->prefix('admin')->group(function () {
 
     Route::middleware('auth')->get('/export-inscribed', [AdminController::class, 'exportInscribed']);
 
+    Route::middleware('auth')->get('/encrypt-term/{term}', [AdminController::class, 'encryptTerm']);
+
+
+    
     Route::post('/sign-in', [AuthController::class, 'signIn']);
     Route::delete('/sign-out', [AuthController::class, 'signOut']);
 });
+
+
 
 //registrado - correo validado - (voucher validado - inscrito) - rechazado 

@@ -11,10 +11,8 @@ use App\Models\Payment;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
+use PDF;
 
-use Google_Client;
-use Google_Service_Sheets;
-use Google_Service_Sheets_ValueRange;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
@@ -22,6 +20,7 @@ use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
 
 use Illuminate\Support\Str;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class AdminController extends Controller
 {
@@ -152,9 +151,6 @@ class AdminController extends Controller
         Mail::to($request->email)->send(new WelcomeMail($dataEmail));
     }
 
-
-
-
     public function validatePreRegistration(Request $request): JsonResponse
     {
         $existMember = Member::where('document', $request->member['document'])->first();
@@ -196,6 +192,39 @@ class AdminController extends Controller
     }
 
 
+    public function encryptTerm($term)
+    {
+
+        $termEncrypt = Crypt::encryptString($term);
+        $url = url("/certificate");
+        return response()->json("$url/$termEncrypt");
+    }
+
+    public function generateCertificate($key)
+    {
+
+        $_document = Crypt::decryptString($key);
+
+        $member = Member::select('name', 'paternal_surname', 'maternal_surname')->where('document', $_document)->first();
+
+        $content = url("/certificate") . "/$key";
+
+        // Genera el código QR con el contenido especificado
+        $qrCode = QrCode::size(100)->generate($content);
+
+        $bg = public_path('certicates/certificado.png');
+
+        $pdf = PDF::loadView('pdf.certificate', ['name' => $member->name . ' ' .  $member->paternal_surname . ' ' . $member->maternal_surname, 'course' => 'Laravel Basics', 'bg' => $bg, 'qrCode' => $qrCode]);
+
+        // Configura Dompdf para que no tenga márgenes
+        $pdf->setPaper('A4', 'landscape'); // Establece el tamaño de página a A4 horizontal
+        $pdf->setOption('padding-top', 0);
+        $pdf->setOption('padding-right', 0);
+        $pdf->setOption('padding-bottom', 0);
+        $pdf->setOption('padding-left', 0);
+
+        return $pdf->stream('pdf.certificate.pdf');
+    }
 
     // protected function updateCell($request)
     // {

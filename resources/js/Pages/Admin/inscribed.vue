@@ -42,7 +42,7 @@
                             :url="url"
                         >
                             <template v-slot:header="{ filter }">
-                                <v-row class="py-3" >
+                                <v-row class="py-3">
                                     <v-col cols="4" md="4">
                                         <v-btn
                                             prepend-icon="mdi-file-excel-box-outline"
@@ -61,8 +61,20 @@
                                 </v-row>
                             </template>
                             <template v-slot:action="{ item }">
-                                <v-btn @click="sendEmail(item)">
-                                    Enviar CORREO
+                                <v-btn
+                                    @click="sendEmail(item)"
+                                    append-icon="mdi-email-fast"
+                                >
+                                    Enviar
+                                </v-btn>
+
+                                <v-btn
+                                    @click="downloadCertificate(item)"
+                                    color="blue"
+                                    class="mt-2"
+                                    append-icon="mdi-certificate-outline"
+                                >
+                                    Certificado
                                 </v-btn>
                             </template>
                         </DataTable>
@@ -89,13 +101,12 @@ const tab = ref(2);
 
 const exportarExcel = async () => {
     try {
-        const response = await axios.get('export-inscribed', {
+        const response = await axios.get("export-inscribed", {
             responseType: "blob", // Indicar que la respuesta es un archivo binario
         });
 
-
-        const nombreArchivo = response.headers['content-disposition'].split('=')[1];
-
+        const nombreArchivo =
+            response.headers["content-disposition"].split("=")[1];
 
         const blob = new Blob([response.data], {
             type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -128,4 +139,10 @@ const sendEmail = (item) => {
 const signOut = async () => {
     router.delete("sign-out");
 };
+
+const downloadCertificate = async (item) => {
+    
+    let res = await axios.get(`/admin/encrypt-term/${item.document}`);
+    window.open(res.data, '_blank');
+}
 </script>
