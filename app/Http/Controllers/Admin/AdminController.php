@@ -213,7 +213,7 @@ class AdminController extends Controller
         $qrCode = QrCode::size(120)->generate($content);
 
         $bg = public_path('certicates/bg-certificate.jpg');
-        $f1 = public_path('certicates/f1.png');
+        $f1 = public_path('certicates/F1.png');
 
         $pdf = PDF::loadView('pdf.certificate', [
             'name' => $member->name . ' ' .  $member->paternal_surname . ' ' . $member->maternal_surname, 
