@@ -210,11 +210,20 @@ class AdminController extends Controller
         $content = url("/certificate") . "/$key";
 
         // Genera el código QR con el contenido especificado
-        $qrCode = QrCode::size(100)->generate($content);
+        $qrCode = QrCode::size(120)->generate($content);
 
-        $bg = public_path('certicates/certificado.png');
+        $bg = public_path('certicates/bg-certificate.jpg');
+        $f1 = public_path('certicates/f1.png');
 
-        $pdf = PDF::loadView('pdf.certificate', ['name' => $member->name . ' ' .  $member->paternal_surname . ' ' . $member->maternal_surname, 'course' => 'Laravel Basics', 'bg' => $bg, 'qrCode' => $qrCode]);
+        $pdf = PDF::loadView('pdf.certificate', [
+            'name' => $member->name . ' ' .  $member->paternal_surname . ' ' . $member->maternal_surname, 
+            'course' => 'Laravel Basics',
+            'bg' => $bg, 
+            'f1' => $f1, 
+            // 'bg' => $bg, 
+            // 'bg' => $bg, 
+            'qrCode' => $qrCode
+        ]);
 
         // Configura Dompdf para que no tenga márgenes
         $pdf->setPaper('A4', 'landscape'); // Establece el tamaño de página a A4 horizontal

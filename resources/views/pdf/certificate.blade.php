@@ -14,7 +14,6 @@
 
     body {
       position: relative;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
     }
 
@@ -27,52 +26,54 @@
       height: 100%;
     }
 
-    .certificate-header {
-      margin-top: 160px;
-      width: 100%;
+    .certificate-name {
+      z-index: 20;
+      position: absolute;
+      top: 337px;
+      left: 315px;
+      width: 680px;
       text-align: center;
+    }
+
+    .certificate-name h2 {
+      text-transform: uppercase;
+      font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    }
+
+
+    .certificate-type {
       z-index: 20;
-
+      position: absolute;
+      top: 410px;
+      left: 315px;
+      width: 680px;
+      text-align: center;
     }
 
-    .certificate-header h1 {
-      color: #29434e;
-      font-size: 38px;
-      margin: 10px 0px;
+    .certificate-type h2 {
+      text-transform: uppercase;
+      font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     }
 
-    .certificate-header h3 {
-      font-size: 18px;
-      color: #555;
-    }
-
-    .certificate-body {
-      z-index: 20;
-      margin: 35px 100px 0 100px;
-    }
-
-    .certificate-body h2 {
-      margin: 5px 0px 0px 0px;
-      font-size: 30px;
-    }
-
-    .certificate-body .centificate-description {
-      margin-top: 20px;
-    }
-
-    .certificate-footer {
-      z-index: 20;
-      margin-top: 110px;
-      padding: 0 100px;
-      width: 100%;
-    }
 
     .certificate-qr {
       z-index: 20;
       position: absolute;
-      left: 0;
-      bottom: 0;
+      left: 77px;
+      bottom: 95px;
       border: 3px solid #fff;
+    }
+
+    .certificate-f1 {
+      z-index: 20;
+      position: absolute;
+      top: 515px;
+      left: 365px;
+    }
+    .certificate-f1 img{
+      
+      width: 80px;
+      height: auto;
     }
   </style>
 </head>
@@ -81,49 +82,28 @@
 
   <img class="certificate-bg" src="{{$bg}}" alt="">
 
-  <div class="certificate-header">
-    <h1>CERTIFICADO</h1>
-    <h3>IX Convención Nacional de Contabilidad Gubernamental y Administración Pública, GUBER-2023</h3>
-  </div>
 
-  <div class="certificate-body">
-    <p>Otorgado a:</p>
+
+  <div class="certificate-name">
     <h2>{{ $name }}</h2>
-    <p>En calidad de:</p>
-    <h2> Observador </h2>
+  </div>
 
-    <p class="centificate-description">
-      En IX Convención Nacional de Contabilidad Gubernamental y Administración Pública, GUBER-2023 que se realizará en la ciudad de Puno los días 26, 27 y 28 de Octubre del 2023.
-    </p>
-
+  <div class="certificate-type">
+    <h2>observador</h2>
   </div>
 
 
-
-  <table class="certificate-footer" width="100%">
-    <tr>
-      <td style="text-align: left;">_______________________
-        <br>
-        Dr. Jose Perez
-      </td>
-      <td></td>
-      <td style="text-align: center;">_______________________
-        <br>
-        Dr. Jose Perez
-      </td>
-      <td></td>
-      <td style="text-align: right;">_______________________
-        <br>
-        Dr. Jose Perez
-
-      </td>
-    </tr>
-  </table>
 
 
 
   <div class="certificate-qr">
     <img src="data:image/png;base64,{{ base64_encode($qrCode) }}" alt="Código QR">
+  </div>
+
+  <div class="certificate-f1">
+
+    <img class="certificate-bg" src="{{$f1}}" alt="">
+
   </div>
 </body>
 
