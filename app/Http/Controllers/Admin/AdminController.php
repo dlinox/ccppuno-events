@@ -212,7 +212,7 @@ class AdminController extends Controller
         // Genera el código QR con el contenido especificado
         $qrCode = QrCode::size(120)->generate($content);
 
-        $bg = public_path('certicates/bg-certificate.jpg');
+        $bg = public_path('certicates/bg-certificate.png');
         $f1 = public_path('certicates/F1.png');
 
         $pdf = PDF::loadView('pdf.certificate', [

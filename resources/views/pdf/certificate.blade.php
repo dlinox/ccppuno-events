@@ -67,7 +67,7 @@
     .certificate-f1 {
       z-index: 20;
       position: absolute;
-      top: 515px;
+      top: 540px;
       left: 365px;
     }
     .certificate-f1 img{
