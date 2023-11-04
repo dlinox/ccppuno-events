@@ -126,19 +126,19 @@ const exportarExcel = async () => {
 
 const sendEmail = async (item) => {
 
-    let res = await axios.post("/admin/send-email", {...item} );
+    // let res = await axios.post("/admin/send-email", {...item} );
 
-    console.log(res.data);
+    // console.log(res.data);
 
-    // router.visit("/admin/send-email", {
-    //     method: "post",
-    //     data: item,
-    //     onSuccess: (page) => {
-    //         alert("Correo Enviado");
-    //     },
-    //     onError: (errors) => {},
-    //     onFinish: (visit) => {},
-    // });
+    router.visit("/admin/send-email", {
+        method: "post",
+        data: item,
+        onSuccess: (page) => {
+            alert("Correo Enviado");
+        },
+        onError: (errors) => {},
+        onFinish: (visit) => {},
+    });
 };
 
 const signOut = async () => {
