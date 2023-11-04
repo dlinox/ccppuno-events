@@ -149,7 +149,7 @@ class AdminController extends Controller
             'password' => $member->document
         ];
 
-        Mail::to($request->email)->send(new WelcomeMail($dataEmail));
+        //Mail::to($request->email)->send(new WelcomeMail($dataEmail));
     }
 
     public function validatePreRegistration(Request $request): JsonResponse
