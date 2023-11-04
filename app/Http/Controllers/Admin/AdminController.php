@@ -140,7 +140,13 @@ class AdminController extends Controller
         $member->password =  $member->document;
         // $member->status =  true;
 
-        $member->save();
+
+        if ($member->save()) {
+
+            return response()->json(true);
+        } else {
+            return response()->json(false);
+        }
 
         $dataEmail = [
             'name' => $request->name . ' ' . $request->paternal_surname . ' ' . $request->maternal_surname,
