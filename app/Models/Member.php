@@ -61,8 +61,8 @@ class Member extends Model implements AuthenticatableContract
         ['text' => "Participante", 'value' => "type", 'short' => false, 'order' => 'ASC'],
         ['text' => "Correo", 'value' => "email", 'short' => false, 'order' => 'ASC'],
         ['text' => "Celular", 'value' => "phone", 'short' => false, 'order' => 'ASC'],
-        ['text' => "Cod. Agremiado", 'value' => "collegiate_code", 'short' => false, 'order' => 'ASC'],
-        ['text' => "Correo Verificado", 'value' => "email_verified_at", 'short' => false, 'order' => 'ASC'],
+        // ['text' => "Cod. Agremiado", 'value' => "collegiate_code", 'short' => false, 'order' => 'ASC'],
+        // ['text' => "Correo Verificado", 'value' => "email_verified_at", 'short' => false, 'order' => 'ASC'],
     ];
 
     public function setPreRegistrationDateAttribute($value)

@@ -39,29 +39,32 @@ Route::name('member.')->prefix('')->group(function () {
 
     Route::middleware('auth:member')->get('/m',  [MemberController::class, 'index'])->name('home');
 
+    Route::middleware('auth:member')->post('/m/generate-key',  [MemberController::class, 'generateKeyCertificate'])->name('generate.key');
+
+
     Route::get('/login',  [MemberAuthController::class, 'index'])->name('login')->middleware('guest:member');
     // Route::get('/register',  [MemberAuthController::class, 'register'])->name('register')->middleware('guest:member');
 
     Route::get('/create-password/{token}',  [MemberAuthController::class, 'createPassword'])->name('create.password');
-    
-    Route::get('/verification-email/{email}',  [MemberAuthController::class, 'verificationEmail'])->name('verification.email');
 
-    
+    Route::get('/verification-email/{email}',  [MemberAuthController::class, 'verificationEmail'])->name('verification.email');
 
     Route::post('/member/sign-in', [MemberAuthController::class, 'signIn']);
     Route::post('/member/save-password', [MemberAuthController::class, 'savePassword']);
     Route::delete('/member/sign-out', [MemberAuthController::class, 'signOut']);
 });
 
+Route::get('/m/certificate/{key}', [MemberController::class, 'generateCertificatePdf']);
+Route::get('/m/certificate/course/{key}', [MemberController::class, 'generateCertificateCoursePdf']);
+
 
 Route::get('/certificate/{key}', [AdminController::class, 'generateCertificate']);
-
 
 Route::name('admin.')->prefix('admin')->group(function () {
 
     Route::middleware('auth')->get('/',  [AdminController::class, 'index'])->name('home');
     Route::middleware('auth')->get('/inscribed',  [AdminController::class, 'inscribed'])->name('inscribed');
-    
+
 
     Route::get('/login',  [AuthController::class, 'index'])->name('login')->middleware('guest');
 
@@ -73,7 +76,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::middleware('auth')->get('/encrypt-term/{term}', [AdminController::class, 'encryptTerm']);
 
 
-    
+
     Route::post('/sign-in', [AuthController::class, 'signIn']);
     Route::delete('/sign-out', [AuthController::class, 'signOut']);
 });

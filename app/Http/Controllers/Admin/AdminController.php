@@ -12,9 +12,9 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 use PDF;
+use Illuminate\Support\Facades\Crypt;
 
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
@@ -131,12 +131,13 @@ class AdminController extends Controller
     public function sendEmail(Request $request)
     {
 
-        $emailHash = Crypt::encryptString($request->email);
+        //$emailHash = Crypt::encryptString($request->email);
 
-        $password = Str::random(8);
+        //$password = Str::random(8);
 
         $member =  Member::where('email', $request->email)->first();
-        $member->password =  $password;
+
+        $member->password =  $member->document;
         // $member->status =  true;
 
         $member->save();
@@ -145,7 +146,7 @@ class AdminController extends Controller
             'name' => $request->name . ' ' . $request->paternal_surname . ' ' . $request->maternal_surname,
             'url' => url("/login"),
             // 'url' => url("/create-password/$emailHash"),
-            'password' => $password
+            'password' => $member->document
         ];
 
         Mail::to($request->email)->send(new WelcomeMail($dataEmail));
@@ -187,7 +188,6 @@ class AdminController extends Controller
 
         $fecha = date('Y-m-d');
         $nameFile = 'member_inscribed_' . $fecha . '.xlsx';
-
         return Excel::download(new InscribedExport, $nameFile);
     }
 
@@ -199,6 +199,9 @@ class AdminController extends Controller
         $url = url("/certificate");
         return response()->json("$url/$termEncrypt");
     }
+
+
+
 
     public function generateCertificate($key)
     {
@@ -214,14 +217,16 @@ class AdminController extends Controller
 
         $bg = public_path('certicates/bg-certificate.png');
         $f1 = public_path('certicates/F1.png');
+        $f2 = public_path('certicates/decano.png');
+        $f3 = public_path('certicates/rector.png');
 
         $pdf = PDF::loadView('pdf.certificate', [
-            'name' => $member->name . ' ' .  $member->paternal_surname . ' ' . $member->maternal_surname, 
+            'name' => $member->name . ' ' .  $member->paternal_surname . ' ' . $member->maternal_surname,
             'course' => 'Laravel Basics',
-            'bg' => $bg, 
-            'f1' => $f1, 
-            // 'bg' => $bg, 
-            // 'bg' => $bg, 
+            'bg' => $bg,
+            'f1' => $f1,
+            'f2' => $f2,
+            'f3' => $f3,
             'qrCode' => $qrCode
         ]);
 

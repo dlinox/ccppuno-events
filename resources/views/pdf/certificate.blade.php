@@ -70,9 +70,34 @@
       top: 540px;
       left: 365px;
     }
-    .certificate-f1 img{
-      
+
+    .certificate-f1 img {
+
       width: 80px;
+      height: auto;
+    }
+
+    .certificate-f2 {
+      z-index: 20;
+      position: absolute;
+      top: 530px;
+      left: 470px;
+    }
+
+    .certificate-f2 img {
+      width: 370px;
+      height: auto;
+    }
+
+    .certificate-f3 {
+      z-index: 20;
+      position: absolute;
+      top: 515px;
+      left: 765px;
+    }
+
+    .certificate-f3 img {
+      width: 250px;
       height: auto;
     }
   </style>
@@ -101,10 +126,20 @@
   </div>
 
   <div class="certificate-f1">
-
     <img class="certificate-bg" src="{{$f1}}" alt="">
-
   </div>
+
+
+  <div class="certificate-f2">
+    <img class="" src="{{$f2}}" alt="">
+  </div>
+
+  <div class="certificate-f3">
+    <img class="" src="{{$f3}}" alt="">
+  </div>
+
 </body>
+
+
 
 </html>

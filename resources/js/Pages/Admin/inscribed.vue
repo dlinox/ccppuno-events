@@ -63,19 +63,19 @@
                             <template v-slot:action="{ item }">
                                 <v-btn
                                     @click="sendEmail(item)"
-                                    append-icon="mdi-email-fast"
+                                    append-icon="mdi-account-key-outline"
                                 >
-                                    Enviar
+                                    Enviar acceso
                                 </v-btn>
 
-                                <v-btn
+                                <!-- <v-btn
                                     @click="downloadCertificate(item)"
                                     color="blue"
                                     class="mt-2"
                                     append-icon="mdi-certificate-outline"
                                 >
                                     Certificado
-                                </v-btn>
+                                </v-btn> -->
                             </template>
                         </DataTable>
                     </v-card-item>
@@ -141,8 +141,7 @@ const signOut = async () => {
 };
 
 const downloadCertificate = async (item) => {
-    
     let res = await axios.get(`/admin/encrypt-term/${item.document}`);
-    window.open(res.data, '_blank');
-}
+    window.open(res.data, "_blank");
+};
 </script>
