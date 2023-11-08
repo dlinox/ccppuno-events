@@ -111,6 +111,7 @@ class AdminController extends Controller
 
             if ($request->value === 'ACEPTADO') {
                 $member = Member::find($request->payment['member_id']);
+                $member->password = $member->document;
                 $member->state = true;
                 $member->save();
             }
