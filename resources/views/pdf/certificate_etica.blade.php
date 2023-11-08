@@ -51,25 +51,25 @@
     .certificate-f1 {
       z-index: 20;
       position: absolute;
-      top: 520px;
-      left: 365px;
+      top: 455px;
+      left: 575px;
+
     }
 
     .certificate-f1 img {
-
-      width: 80px;
+      width: 320px;
       height: auto;
     }
 
     .certificate-f2 {
       z-index: 20;
       position: absolute;
-      top: 510px;
-      left: 530px;
+      top: 575px;
+      left: 250px;
     }
 
     .certificate-f2 img {
-      width: 370px;
+      width: 280px;
       height: auto;
     }
   </style>

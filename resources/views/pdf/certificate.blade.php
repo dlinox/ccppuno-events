@@ -80,12 +80,12 @@
     .certificate-f2 {
       z-index: 20;
       position: absolute;
-      top: 530px;
-      left: 470px;
+      top: 595px;
+      left: 505px;
     }
 
     .certificate-f2 img {
-      width: 370px;
+      width: 280px;
       height: auto;
     }
 

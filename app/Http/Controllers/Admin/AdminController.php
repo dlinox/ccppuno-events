@@ -140,7 +140,8 @@ class AdminController extends Controller
         $member->password =  $member->document;
         // $member->status =  true;
 
-
+        $member->save();
+        
         // if ($member->save()) {
 
         //     return response()->json(true);

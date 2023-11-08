@@ -100,7 +100,7 @@ class MemberController extends Controller
         $qrCode = QrCode::size(120)->generate($content);
 
         $bg = public_path('certicates/course/bg-certificate.png');
-        $f1 = public_path('certicates/F1.png');
+        $f1 = public_path('certicates/javier.png');
         $f2 = public_path('certicates/decano.png');
 
         $pdf = PDF::loadView('pdf.certificate_etica', [
