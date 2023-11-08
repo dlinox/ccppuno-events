@@ -143,7 +143,8 @@ const sendEmail = async (item) => {
 const resetPassword = async (item) => {
     let res = await axios.post("/admin/reset-password", { ...item });
     if (res.data) {
-        alert("Contraseña reseteada");
+        console.log('Contraseña reseteada');
+        // alert("Contraseña reseteada");
     } else {
         alert("Ocurrio un error, vuelva a intentarlo");
     }
