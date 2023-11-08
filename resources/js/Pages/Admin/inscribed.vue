@@ -144,7 +144,7 @@ const resetPassword = async (item) => {
     let res = await axios.post("/admin/reset-password", { ...item });
     if (res.data) {
         console.log('Contraseña reseteada');
-        // alert("Contraseña reseteada");
+        alert("Contraseña reseteada");
     } else {
         alert("Ocurrio un error, vuelva a intentarlo");
     }
