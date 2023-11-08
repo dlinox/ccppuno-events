@@ -68,14 +68,14 @@
                                     Enviar acceso
                                 </v-btn>
 
-                                <!-- <v-btn
-                                    @click="downloadCertificate(item)"
-                                    color="blue"
+                                <v-btn
+                                    @click="resetPassword(item)"
+                                    color="black"
                                     class="mt-2"
-                                    append-icon="mdi-certificate-outline"
+                                    append-icon="mdi-lock-reset"
                                 >
-                                    Certificado
-                                </v-btn> -->
+                                    resetear acceso
+                                </v-btn>
                             </template>
                         </DataTable>
                     </v-card-item>
@@ -125,7 +125,6 @@ const exportarExcel = async () => {
 };
 
 const sendEmail = async (item) => {
-
     // let res = await axios.post("/admin/send-email", {...item} );
 
     // console.log(res.data);
@@ -139,6 +138,15 @@ const sendEmail = async (item) => {
         onError: (errors) => {},
         onFinish: (visit) => {},
     });
+};
+
+const resetPassword = async (item) => {
+    let res = await axios.post("/admin/reset-password", { ...item });
+    if (res.data) {
+        alert("Contraseña reseteada");
+    } else {
+        alert("Ocurrio un error, vuelva a intentarlo");
+    }
 };
 
 const signOut = async () => {

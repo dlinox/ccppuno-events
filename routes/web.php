@@ -70,6 +70,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
 
     Route::middleware('auth')->post('/validate-payment', [AdminController::class, 'validatePayment']);
     Route::middleware('auth')->post('/send-email', [AdminController::class, 'sendEmail']);
+    Route::middleware('auth')->post('/reset-password', [AdminController::class, 'resetPassword']);
 
     Route::middleware('auth')->get('/export-inscribed', [AdminController::class, 'exportInscribed']);
 

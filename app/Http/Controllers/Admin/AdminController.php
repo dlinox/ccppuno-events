@@ -141,7 +141,7 @@ class AdminController extends Controller
         // $member->status =  true;
 
         $member->save();
-        
+
         // if ($member->save()) {
 
         //     return response()->json(true);
@@ -157,6 +157,18 @@ class AdminController extends Controller
         ];
 
         Mail::to($request->email)->send(new WelcomeMail($dataEmail));
+    }
+
+
+    public function resetPassword(Request $request)
+    {
+        $member =  Member::where('email', $request->email)->first();
+        $member->password =  $member->document;
+        if ($member->save()) {
+            return response()->json(true);
+        } else {
+            return response()->json(false);
+        }
     }
 
     public function validatePreRegistration(Request $request): JsonResponse
