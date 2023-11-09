@@ -114,7 +114,7 @@
   </div>
 
   <div class="certificate-type">
-    <h2>observador</h2>
+    <h2>{{ $type }}</h2>
   </div>
 
 

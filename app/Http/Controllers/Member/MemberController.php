@@ -51,7 +51,7 @@ class MemberController extends Controller
 
         $keyDecrypt = explode('-', $_key);
 
-        $member = Member::select('degree', 'name', 'paternal_surname', 'maternal_surname')->where('document', $keyDecrypt[0])->first();
+        $member = Member::select('degree', 'name', 'paternal_surname', 'maternal_surname', 'type')->where('document', $keyDecrypt[0])->first();
 
         $content = url("/m/certificate") . "/$key";
 
@@ -65,6 +65,7 @@ class MemberController extends Controller
 
         $pdf = PDF::loadView('pdf.certificate', [
             'name' => $member->degree . ' ' .   $member->name . ' ' .  $member->paternal_surname . ' ' . $member->maternal_surname,
+            'type' => $member->type,
             'bg' => $bg,
             'f1' => $f1,
             'f2' => $f2,
